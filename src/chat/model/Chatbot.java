@@ -14,6 +14,19 @@ public class Chatbot
 	private ArrayList<String> politicalTopicList;
 	private String userName;
 	private String content;
+	//required memes
+	//me gusta
+	//doge
+	//rare pepe
+	//troll
+	//spooderman
+	//cute animals
+	//Aliens
+	//what if i told you
+	//unhelpful highschool teacher
+	//Y u no
+	
+	
 	
 	/**
 	 * Creates an instance of the Chatbot with the supplied username.
