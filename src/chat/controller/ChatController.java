@@ -25,5 +25,35 @@ public class ChatController
 	public void start()
 	{
 		myDisplay.showResponce("hello "+ myBot.getUserName());
+		chat();
+		
+	}
+	
+	private void chat()
+	{
+		
+		String conversation = myDisplay.grabAnswer("What would you like to talk about today?");
+		while(myBot.lengthChecker(conversation))
+		{
+			if(myBot.contentChecker(conversation))
+			{
+				myDisplay.showResponce("wow i had no idea you liked "+ myBot.getContent());
+			}
+			if(myBot.memeChecker(conversation))
+			{
+				myDisplay.showResponce("wow i had no clue you liked " + myBot.getMemesList());
+			}
+			
+			conversation = myDisplay.grabAnswer(conversation);
+			
+//			if(!myBot.quitChecker(conversation))
+//			{
+//				conversation =simple.processInput(conversation);
+//			}
+//			else
+//			{
+//				shutDown()
+//			}
+		}
 	}
 }

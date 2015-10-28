@@ -8,11 +8,11 @@ public class ChatView
 	{
 		JOptionPane.showMessageDialog(null, wordsFromSomewhere);
 	}
-	public String grabAnswer(String grabInput)
+	public String grabAnswer(String conversation)
 	{
 		String answer = "";
 		
-		answer = JOptionPane.showInputDialog(null, grabInput);
+		answer = JOptionPane.showInputDialog(null, conversation);
 		
 		return answer;
 	}

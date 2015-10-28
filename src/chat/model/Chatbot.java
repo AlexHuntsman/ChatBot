@@ -14,20 +14,7 @@ public class Chatbot
 	private ArrayList<String> politicalTopicList;
 	private String userName;
 	private String content;
-	//required memes
-	//me gusta
-	//doge
-	//rare pepe
-	//troll
-	//spooderman
-	//cute animals
-	//Aliens
-	//what if i told you
-	//unhelpful highschool teacher
-	//Y u no
-	
-	
-	
+
 	/**
 	 * Creates an instance of the Chatbot with the supplied username.
 	 * @param userName The username for the chatbot.
@@ -37,11 +24,24 @@ public class Chatbot
 		this.memesList = new ArrayList<String>();
 		this.politicalTopicList = new ArrayList<String>();
 		this.userName = userName;
-		this.content = "StarWars";
+		this.content = "starwars";
+		
+		buildMemesList();
+		buildPoliticalTopicsList();
 	}
 	
 	private void buildMemesList()
 	{
+		this.memesList.add("me gusta");
+		this.memesList.add("doge");
+		this.memesList.add("pepe");
+		this.memesList.add("troll");
+		this.memesList.add("spooderman");
+		this.memesList.add("cute animals");
+		this.memesList.add("aliens");
+		this.memesList.add("what if i told you");
+		this.memesList.add("unhelpful highschool teacher");
+		this.memesList.add("y u no");
 		
 	}
 	
@@ -83,7 +83,14 @@ public class Chatbot
 	 */
 	public boolean contentChecker(String currentInput)
 	{
-		return false;
+		boolean hasContent = false;
+		
+		if(currentInput.toLowerCase().contains(content))
+		{
+			hasContent = true;
+		}
+		
+		return hasContent;
 	}
 	
 	/**
@@ -103,9 +110,19 @@ public class Chatbot
 	 * @param currentInput The supplied String to be checked.
 	 * @return Whether the supplied String is a recognized meme.
 	 */
-	public boolean memeChecker(String currentInput)
+	public boolean memeChecker(String currentInput, String currentMeme)
 	{
-		return false;
+		boolean hasMeme = false;
+		
+		if(currentMeme.equalsIgnoreCase(currentInput))
+		{
+			
+		}
+		if(memesList.contains(currentInput.toLowerCase()))
+		{
+			hasMeme = true;
+		}
+		return hasMeme;
 	}
 	
 	/**
@@ -123,7 +140,7 @@ public class Chatbot
 	 */
 	public String getContent()
 	{
-		return null;
+		return content;
 	}
 	
 	/**
@@ -132,7 +149,7 @@ public class Chatbot
 	 */
 	public ArrayList<String> getMemesList()
 	{
-		return null;
+		return memesList;
 	}
 	
 	/**
