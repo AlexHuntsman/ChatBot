@@ -110,18 +110,18 @@ public class Chatbot
 	 * @param currentInput The supplied String to be checked.
 	 * @return Whether the supplied String is a recognized meme.
 	 */
-	public boolean memeChecker(String currentInput, String currentMeme)
+	public boolean memeChecker(String currentInput)
 	{
 		boolean hasMeme = false;
 		
-		if(currentMeme.equalsIgnoreCase(currentInput))
+		for(String meme : memesList)
 		{
-			
+			if(currentInput.toLowerCase().contains(meme.toLowerCase()))
+			{
+				hasMeme = true;
+			}
 		}
-		if(memesList.contains(currentInput.toLowerCase()))
-		{
-			hasMeme = true;
-		}
+
 		return hasMeme;
 	}
 	
