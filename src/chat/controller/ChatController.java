@@ -35,25 +35,11 @@ public class ChatController
 		String conversation = myDisplay.grabAnswer("What would you like to talk about today?");
 		while(myBot.lengthChecker(conversation))
 		{
-			if(myBot.contentChecker(conversation))
-			{
-				myDisplay.showResponce("wow i had no idea you liked "+ myBot.getContent());
-			}
-			else if(myBot.memeChecker(conversation))
-			{
-				myDisplay.showResponce("That meme is sweet");
-			}
 			
+			conversation = myBot.procesConversation(conversation);
 			conversation = myDisplay.grabAnswer(conversation);
 			
-//			if(!myBot.quitChecker(conversation))
-//			{
-//				conversation =simple.processInput(conversation);
-//			}
-//			else
-//			{
-//				shutDown()
-//			}
 		}
+		
 	}
 }
