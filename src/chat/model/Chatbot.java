@@ -46,17 +46,29 @@ public class Chatbot
 				{
 					nextConversation = "that is a very popular meme this year. What else are you " + " wanting to talk about?";
 				}
+				else
+				{
+					nextConversation = "Thats pretty cool";
+				}
 				break;
 			case 1:
 				if(politicalTopicChecker(currentInput))
 				{
 					nextConversation = "how interesting. why is that?";
 				}
+				else
+				{
+					nextConversation = "What do you mean?";
+				}
 				break;
 			case 2:
 				if(contentChecker(currentInput))
 				{
 					nextConversation = "Starwars is amazing what else would you like to talk about.";
+				}
+				else
+				{
+					nextConversation = "ok";
 				}
 				break;
 			case 3:
