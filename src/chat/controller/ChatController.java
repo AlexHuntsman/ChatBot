@@ -1,6 +1,7 @@
 package chat.controller;
 
 import chat.view.ChatView;
+import chat.view.ChatFrame;
 import chat.model.Chatbot;
 
 /**
@@ -13,12 +14,14 @@ public class ChatController
 {
 	private Chatbot myBot;
 	private ChatView myDisplay;
+	private ChatFrame baseFrame;
 	
 	public ChatController()
 	{
 		myDisplay = new ChatView();
 		String userName = myDisplay.grabAnswer("What is your name?");
 		myBot = new Chatbot(userName);
+		baseFrame = new ChatFrame(this);
 	}
 	
 	
@@ -42,4 +45,40 @@ public class ChatController
 		}
 		
 	}
+	private void shutDown()
+	{
+		myDisplay.showResponce("Goodbye, " + myBot.getUserName() + " it h been my pleasure to talk with you");
+		System.exit(0);
+	}
+
+
+	public Chatbot getMyBot() {
+		return myBot;
+	}
+
+
+	public void setMyBot(Chatbot myBot) {
+		this.myBot = myBot;
+	}
+
+
+	public ChatView getMyDisplay() {
+		return myDisplay;
+	}
+
+
+	public void setMyDisplay(ChatView myDisplay) {
+		this.myDisplay = myDisplay;
+	}
+
+
+	public ChatFrame getBaseFrame() {
+		return baseFrame;
+	}
+
+
+	public void setBaseFrame(ChatFrame baseFrame) {
+		this.baseFrame = baseFrame;
+	}
+	
 }
