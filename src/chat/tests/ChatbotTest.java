@@ -16,136 +16,136 @@ import chat.model.Chatbot;
  */
 public class ChatbotTest
 {
-	private Chatbot sampleBot;
+	private Chatbot myBot;
 	private String userName;
 
 	@Before
 	public void setUp() throws Exception
 	{
 		userName = "test";
-		sampleBot = new Chatbot(userName);
+		myBot = new Chatbot(userName);
 	}
 
 	@After
 	public void tearDown() throws Exception
 	{
 		userName = null;
-		sampleBot = null;
+		myBot = null;
 	}
 
 	@Test
 	public void testChatbot()
 	{
-		assertNotNull("The memesList is not present",sampleBot.getMemesList());
-		assertNotNull("The politicalTopicsList is not present", sampleBot.getPoliticalTopicList());
-		assertSame("The username is the same object", userName, sampleBot.getUserName());
+		assertNotNull("The memesList is not present",myBot.getMemesList());
+		assertNotNull("The politicalTopicsList is not present", myBot.getPoliticalTopicList());
+		assertSame("The username is the same object", userName, myBot.getUserName());
 	}
 
 	@Test
 	public void testLengthChecker()
 	{
-		assertFalse("Correct zero length check",sampleBot.lengthChecker(""));
-		assertFalse("Correct null check", sampleBot.lengthChecker(null));
-		assertTrue("Correct length check", sampleBot.lengthChecker("       "));
+		assertFalse("Correct zero length check",myBot.lengthChecker(""));
+		assertFalse("Correct null check", myBot.lengthChecker(null));
+		assertTrue("Correct length check", myBot.lengthChecker("       "));
 	}
 
 	@Test
 	public void testContentChecker()
 	{
-		String content = "some words";
-		sampleBot.setContent(content);
-		assertFalse("Check blank failed", sampleBot.contentChecker(" "));
-		assertFalse("Check partial failed", sampleBot.contentChecker("words"));
-		assertFalse("Check partial failed", sampleBot.contentChecker("some"));
-		assertTrue("Check match failed", sampleBot.contentChecker(content));
-		assertTrue("Check match plus failed", sampleBot.contentChecker("content " + content));
-		assertTrue("Opposite check match failed", sampleBot.contentChecker(content + " other content"));
+		String content = "starwars";
+		myBot.setContent(content);
+		assertFalse("Check blank failed", myBot.contentChecker(" "));
+		assertFalse("Check partial failed", myBot.contentChecker("words"));
+		assertFalse("Check partial failed", myBot.contentChecker("some"));
+		assertTrue("Check match failed", myBot.contentChecker(content));
+		assertTrue("Check match plus failed", myBot.contentChecker("content " + content));
+		assertTrue("Opposite check match failed", myBot.contentChecker(content + " other content"));
 	}
 	
 	@Test
 	public void testKeyboardMashChecker()
 	{
-		assertFalse("Mash incorrectly detected", sampleBot.keyboardMashChecker("S.D.F."));
-		assertFalse("Mash incorrectly detected", sampleBot.keyboardMashChecker("derf"));
-		assertTrue("Mash not detected", sampleBot.keyboardMashChecker("sdf"));
-		assertTrue("Mash not detected", sampleBot.keyboardMashChecker("dfg"));
-		assertTrue("Mash not detected", sampleBot.keyboardMashChecker("cvb"));
-		assertTrue("Mash not detected", sampleBot.keyboardMashChecker(",./"));
+		assertFalse("Mash incorrectly detected", myBot.keyboardMashChecker("S.D.F."));
+		assertFalse("Mash incorrectly detected", myBot.keyboardMashChecker("derf"));
+		assertTrue("Mash not detected", myBot.keyboardMashChecker("sdf"));
+		assertTrue("Mash not detected", myBot.keyboardMashChecker("dfg"));
+		assertTrue("Mash not detected", myBot.keyboardMashChecker("cvb"));
+		assertTrue("Mash not detected", myBot.keyboardMashChecker(",./"));
 	}
 
 	@Test
 	public void testPoliticalTopicChecker()
 	{
-		assertTrue("Topic check", sampleBot.getPoliticalTopicList().contains("Democrat"));
-		assertTrue("Topic check", sampleBot.getPoliticalTopicList().contains("Republican"));
-		assertTrue("Topic check", sampleBot.getPoliticalTopicList().contains("11/4/16"));
+		assertTrue("Topic check", myBot.getPoliticalTopicList().contains("Democrat"));
+		assertTrue("Topic check", myBot.getPoliticalTopicList().contains("Republican"));
+		assertTrue("Topic check", myBot.getPoliticalTopicList().contains("11/4/16"));
 	}
 
 	@Test
 	public void testMemeChecker()
 	{
-		assertTrue("Topic check", sampleBot.getMemesList().contains("doge"));
-		assertTrue("Topic check", sampleBot.getMemesList().contains("cute animals"));
+		assertTrue("Topic check", myBot.getMemesList().contains("doge"));
+		assertTrue("Topic check", myBot.getMemesList().contains("cute animals"));
 	}
 	
 	@Test
 	public void testQuitChecker()
 	{
-		assertFalse("False positive", sampleBot.quitChecker("exit"));
-		assertTrue("False negative", sampleBot.quitChecker("quit"));
+		assertFalse("False positive", myBot.quitChecker("exit"));
+		assertTrue("False negative", myBot.quitChecker("quit"));
 	}
 	
 	@Test
 	public void testBuildMemesList()
 	{
-		assertTrue("Size check", sampleBot.getMemesList().size() >= 10);
-		assertTrue("Topic check", sampleBot.getMemesList().contains("doge"));
-		assertTrue("Topic check", sampleBot.getMemesList().contains("cute animals"));
+		assertTrue("Size check", myBot.getMemesList().size() >= 10);
+		assertTrue("Topic check", myBot.getMemesList().contains("doge"));
+		assertTrue("Topic check", myBot.getMemesList().contains("cute animals"));
 	}
 	
 	@Test
 	public void testBuildPoliticalTopicList()
 	{
-		assertTrue("Size check", sampleBot.getPoliticalTopicList().size() >= 10);
-		assertTrue("Topic check", sampleBot.getPoliticalTopicList().contains("Democrat"));
-		assertTrue("Topic check", sampleBot.getPoliticalTopicList().contains("Republican"));
-		assertTrue("Topic check", sampleBot.getPoliticalTopicList().contains("11/4/16"));
+		assertTrue("Size check", myBot.getPoliticalTopicList().size() >= 10);
+		assertTrue("Topic check", myBot.getPoliticalTopicList().contains("Democrat"));
+		assertTrue("Topic check", myBot.getPoliticalTopicList().contains("Republican"));
+		assertTrue("Topic check", myBot.getPoliticalTopicList().contains("11/4/16"));
 	}
 
 	@Test
 	public void testGetUserName()
 	{
-		assertSame("Getters work", userName, sampleBot.getUserName());
+		assertSame("Getters work", userName, myBot.getUserName());
 	}
 
 	@Test
 	public void testGetContent()
 	{
-		String content = "topic area of interest";
-		sampleBot.setContent(content);
-		assertSame("Setters and Getters work", content, sampleBot.getContent());
+		String content = "starwars";
+		myBot.setContent(content);
+		assertSame("Setters and Getters work", content, myBot.getContent());
 	}
 
 	@Test
 	public void testGetMemesList()
 	{
-		assertNotNull("Getters work again", sampleBot.getMemesList());
+		assertNotNull("Getters work again", myBot.getMemesList());
 	}
 
 	@Test
 	public void testGetPoliticalTopicList()
 	{
-		assertNotNull("Getters still work in Java", sampleBot.getPoliticalTopicList());
+		assertNotNull("Getters still work in Java", myBot.getPoliticalTopicList());
 	}
 	
 	@Test
 	public void testSetContent()
 	{
-		String oldContent = sampleBot.getContent();
-		String content = "some other content";
-		sampleBot.setContent(content);
-		assertNotSame("Changed values", oldContent, sampleBot.getContent());
-		assertSame("Setters work", content, sampleBot.getContent());
+		String oldContent = myBot.getContent();
+		String content = "starwars";
+		myBot.setContent(content);
+		assertNotSame("Changed values", oldContent, myBot.getContent());
+		assertSame("Setters work", content, myBot.getContent());
 	}
 
 }

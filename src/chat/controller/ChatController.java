@@ -1,8 +1,7 @@
 package chat.controller;
 
-import chat.view.ChatView;
-import chat.view.ChatFrame;
 import chat.model.Chatbot;
+import chat.view.*;
 
 /**
  * Application controller for the ChatBot project.
@@ -15,11 +14,12 @@ public class ChatController
 	private Chatbot myBot;
 	private ChatView myDisplay;
 	private ChatFrame baseFrame;
+	private ChatPanel basePanel;
 	
 	public ChatController()
 	{
 		myDisplay = new ChatView();
-		String userName = myDisplay.grabAnswer("What is your name?");
+		String userName = myDisplay.collectUserText("What is your name?");
 		myBot = new Chatbot(userName);
 		baseFrame = new ChatFrame(this);
 	}
@@ -35,15 +35,27 @@ public class ChatController
 	private void chat()
 	{
 		
-		String conversation = myDisplay.grabAnswer("What would you like to talk about today?");
-		while(myBot.lengthChecker(conversation))
-		{
+		String conversation = myDisplay.collectUserText("What would you like to talk about today?");
+		//while(myBot.lengthChecker(conversation))
+		//{
 			
-			conversation = myBot.procesConversation(conversation);
-			conversation = myDisplay.grabAnswer(conversation);
+		//	conversation = myBot.procesConversation(conversation);
+		//	conversation = myDisplay.grabAnswer(conversation);
 			
-		}
+		//}
 		
+	}
+	public String userToChatbot(String conversation)
+	{
+		String responce = "";
+		
+		if(myBot.quitChecker(conversation))
+		{
+			shutDown();
+		}
+		responce = myBot.procesConversation(conversation);
+		
+		return responce;
 	}
 	private void shutDown()
 	{
@@ -52,33 +64,48 @@ public class ChatController
 	}
 
 
-	public Chatbot getMyBot() {
+	public Chatbot getChatbot() 
+	{
 		return myBot;
 	}
 
 
-	public void setMyBot(Chatbot myBot) {
+	public void setChatbot(Chatbot myBot)
+	{
 		this.myBot = myBot;
 	}
 
 
-	public ChatView getMyDisplay() {
+	public ChatView getChatView() 
+	{
 		return myDisplay;
 	}
 
 
-	public void setMyDisplay(ChatView myDisplay) {
+	public void setChatView(ChatView myDisplay) 
+	{
 		this.myDisplay = myDisplay;
 	}
 
 
-	public ChatFrame getBaseFrame() {
+	public ChatFrame getBaseFrame() 
+	{
 		return baseFrame;
 	}
 
-
 	public void setBaseFrame(ChatFrame baseFrame) {
 		this.baseFrame = baseFrame;
+	}	
+	
+	public void setBasePanel(ChatPanel basePanel) {
+		this.basePanel = basePanel;
 	}
+	
+	public ChatPanel getBasePanel() 
+	{
+		return basePanel;
+	}
+
+
 	
 }

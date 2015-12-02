@@ -25,7 +25,7 @@ public class ChatFrame extends JFrame
 		this.setVisible(true);
 	}
 	
-	public ChatController getChatController()
+	public ChatController getBaseController()
 	{
 		return baseController;
 	}

@@ -14,6 +14,7 @@ public class Chatbot
 {
 	private ArrayList<String> memesList;
 	private ArrayList<String> politicalTopicList;
+	private ArrayList<String> keyboardMash;
 	private String userName;
 	private String content;
 
@@ -27,11 +28,13 @@ public class Chatbot
 	{
 		this.memesList = new ArrayList<String>();
 		this.politicalTopicList = new ArrayList<String>();
+		this.keyboardMash = new ArrayList<String>();
 		this.userName = userName;
-		this.content = "starwars";
+		this.content = "content";
 
 		buildMemesList();
 		buildPoliticalTopicsList();
+		buildKeyboardMashChecker();
 	}
 
 	public String procesConversation(String currentInput) 
@@ -54,11 +57,11 @@ public class Chatbot
 			case 1:
 				if(politicalTopicChecker(currentInput))
 				{
-					nextConversation = "how interesting. why is that?";
+					nextConversation = "Hay your vote matters";
 				}
 				else
 				{
-					nextConversation = "What do you mean?";
+					nextConversation = "What about 11/4/16? You know voteing day?";
 				}
 				break;
 			case 2:
@@ -68,7 +71,7 @@ public class Chatbot
 				}
 				else
 				{
-					nextConversation = "ok";
+					nextConversation = "What about it?";
 				}
 				break;
 			case 3:
@@ -76,9 +79,16 @@ public class Chatbot
 				{
 					nextConversation = "Wow you sure have a lot to say! Any thing else you'd like to say?";
 				}
+				else
+				{
+					nextConversation = "say what ever you like";
+				}
 				break;
 			case 4:
-				nextConversation = "boop";
+				if(keyboardMashChecker(currentInput))
+				{
+					
+				}
 				break;
 			default:
 				break;
@@ -104,7 +114,25 @@ public class Chatbot
 
 	private void buildPoliticalTopicsList() 
 	{
-
+		this.politicalTopicList.add("Democrat");
+		this.politicalTopicList.add("Republican");
+		this.politicalTopicList.add("11/4/16");
+		this.politicalTopicList.add("Election");
+		this.politicalTopicList.add("Presedent");
+		this.politicalTopicList.add("Oboma");
+		this.politicalTopicList.add("Election");
+		this.politicalTopicList.add("Stormcloak");
+		this.politicalTopicList.add("Imperial");
+		this.politicalTopicList.add("Talos");
+	}
+	
+	private void buildKeyboardMashChecker()
+	{
+		this.keyboardMash.add("sdf");
+		this.keyboardMash.add("dfg");
+		this.keyboardMash.add("cvb");
+		this.keyboardMash.add(",./");
+		this.keyboardMash.add("jkl");
 	}
 
 	/**
@@ -118,7 +146,8 @@ public class Chatbot
 	{
 		boolean hasLength = false;
 
-		if (currentInput != null) {
+		if (currentInput != null) 
+		{
 			if (currentInput.length() > 0) 
 			{
 				hasLength = true;
@@ -165,7 +194,17 @@ public class Chatbot
 	 */
 	public boolean politicalTopicChecker(String currentInput)
 	{
-		return false;
+		boolean hasPolitical = false;
+		
+		for (String topic : memesList) 
+		{
+			if (currentInput.toLowerCase().contains(topic.toLowerCase())) 
+			{
+				hasPolitical = true;
+			}
+		}
+		
+		return hasPolitical;
 	}
 
 	/**
@@ -189,6 +228,30 @@ public class Chatbot
 		}
 
 		return hasMeme;
+	}
+	public boolean keyboardMashChecker(String currentInput)
+	{
+		boolean hasKeyboardMash = false;
+		
+		for (String mash : keyboardMash) 
+		{
+			if (currentInput.toLowerCase().contains(mash.toLowerCase())) 
+			{
+				hasKeyboardMash = true;
+			}
+		}
+		
+		return hasKeyboardMash;
+	}
+	
+	public boolean quitChecker(String currentInput)
+	{
+		boolean hasQuit = false;
+		if(currentInput.toLowerCase().equals("quit"))
+		{
+			hasQuit = true;
+		}
+		return hasQuit;
 	}
 
 	/**
@@ -228,7 +291,7 @@ public class Chatbot
 	 */
 	public ArrayList<String> getPoliticalTopicList() 
 	{
-		return null;
+		return politicalTopicList;
 	}
 
 	/**
@@ -239,6 +302,7 @@ public class Chatbot
 	 */
 	public void setContent(String content) 
 	{
-
+		content = "starwars";
+		this.content = content;
 	}
 }

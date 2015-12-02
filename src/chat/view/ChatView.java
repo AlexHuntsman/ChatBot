@@ -16,7 +16,7 @@ public class ChatView
 	{
 		JOptionPane.showMessageDialog(null, wordsFromSomewhere,windowMessage, JOptionPane.INFORMATION_MESSAGE, chatIcon);
 	}
-	public String grabAnswer(String conversation)
+	public String collectUserText(String conversation)
 	{
 		String answer = "";
 		
