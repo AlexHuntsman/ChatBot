@@ -75,6 +75,7 @@ private void setupPanel()
 	this.setLayout(baseLayout);
 	this.setBackground(Color.CYAN);
 	this.add(textPane);
+	//DO NOT ADD THE LINE this.add(chatArea);
 	this.add(textField);
 	this.add(promptLabel);
 	this.add(submitButton);
