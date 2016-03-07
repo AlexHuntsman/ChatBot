@@ -2,6 +2,7 @@ package chat.model;
 
 import twitter4j.*;
 import java.util.*;
+import java.io.*;
 import chat.controller.ChatController;
 
 public class CTECTwitter
