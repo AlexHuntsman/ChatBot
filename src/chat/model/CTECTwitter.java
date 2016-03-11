@@ -25,9 +25,7 @@ public class CTECTwitter
 	{
 		try
 		{
-			chatbotTwitter
-					.updateStatus("Alex just tweeted from my java Chatbot "
-							+ "program! #APCSRocks!!");
+			chatbotTwitter.updateStatus("Alex just tweeted from my java Chatbot " + "program! #APCSRocks!!");
 		} catch (TwitterException error)
 		{
 			baseController.handleErrors(error.getErrorMessage());

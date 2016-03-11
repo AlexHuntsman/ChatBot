@@ -39,7 +39,7 @@ public class ChatPanel extends JPanel
 		saveButton = new JButton("Save");
 		loadButton = new JButton("Load");
 		analyzeTwitterButton = new JButton("analyze");
-		
+	
 		
 		setupChatPane();
 		setupPanel();
@@ -49,6 +49,14 @@ public class ChatPanel extends JPanel
 
 	private void setupLayout()
 	{
+		baseLayout.putConstraint(SpringLayout.NORTH, analyzeTwitterButton, 0, SpringLayout.NORTH, tweetButton);
+		baseLayout.putConstraint(SpringLayout.WEST, analyzeTwitterButton, 4, SpringLayout.EAST, tweetButton);
+		
+		baseLayout.putConstraint(SpringLayout.NORTH, loadButton, 0, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.EAST, loadButton, -2, SpringLayout.WEST, saveButton);
+		baseLayout.putConstraint(SpringLayout.NORTH, tweetButton, 0, SpringLayout.NORTH, saveButton);
+		baseLayout.putConstraint(SpringLayout.NORTH, saveButton, 0, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.WEST, tweetButton, 0, SpringLayout.WEST, this);
 		baseLayout.putConstraint(SpringLayout.WEST, promptLabel, 36,
 				SpringLayout.WEST, this);
 		baseLayout.putConstraint(SpringLayout.NORTH, promptLabel, 5,
@@ -76,6 +84,7 @@ public class ChatPanel extends JPanel
 	private void setupChatPane()
 	{
 		textPane = new JScrollPane(chatArea);
+		baseLayout.putConstraint(SpringLayout.EAST, saveButton, 0, SpringLayout.EAST, textPane);
 		chatArea.setLineWrap(true);
 		chatArea.setWrapStyleWord(true);
 		chatArea.setEditable(false);
@@ -121,7 +130,7 @@ public class ChatPanel extends JPanel
 		{
 			public void actionPerformed(ActionEvent click)
 			{
-				baseController.sendTweet("Space is soooo coo oo oo oo oo l - alex #CTEC #APCS #MARKIPLIER");
+				baseController.sendTweet("No Text to send");
 			}
 		});
 		analyzeTwitterButton.addActionListener(new ActionListener()

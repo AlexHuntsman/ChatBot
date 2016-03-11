@@ -21,7 +21,8 @@ public class ChatController
 	public ChatController()
 	{
 		myDisplay = new ChatView();
-		String userName = myDisplay.collectUserText("What is your name?");
+		//String userName = myDisplay.collectUserText("What is your name?");
+		String userName = "Alex";
 		myBot = new Chatbot(userName);
 		baseFrame = new ChatFrame(this);
 		chatTwitter = new CTECTwitter(this);
@@ -30,7 +31,7 @@ public class ChatController
 	public void start()
 	{
 		//myDisplay.showResponce("hello " + myBot.getUserName());
-		chat();
+		//chat();
 	}
 	
 	public String analyze(String userName)
@@ -77,7 +78,7 @@ public class ChatController
 
 	public void sendTweet(String tweetText)
 	{
-
+		chatTwitter.sendTweet("Space is soooo coo oo oo oo oo l - alex #CTEC #APCS #MARKIPLIER");
 	}
 
 	public Chatbot getChatbot()
