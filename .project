@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/chat/model/twitter4j.properties</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Twitter/twitter4j.properties</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>

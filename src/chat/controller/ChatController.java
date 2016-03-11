@@ -29,9 +29,15 @@ public class ChatController
 
 	public void start()
 	{
-		myDisplay.showResponce("hello " + myBot.getUserName());
+		//myDisplay.showResponce("hello " + myBot.getUserName());
 		chat();
-
+	}
+	
+	public String analyze(String userName)
+	{
+		String userAnalysis = "" + userName + "has ...";
+		
+		return userAnalysis;
 	}
 
 	private void chat()
@@ -113,9 +119,10 @@ public class ChatController
 	{
 		return basePanel;
 	}
-	public void handleErrors(String errorMessage)
+	
+	public void handleErrors(String error)
 	{
-		myDisplay.showResponce(errorMessage);
+		myDisplay.showResponce(error);
 	}
 
 }

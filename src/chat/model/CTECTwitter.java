@@ -25,7 +25,7 @@ public class CTECTwitter
 	{
 		try
 		{
-			chatbotTwitter.updateStatus("");
+			chatbotTwitter.updateStatus("Alex just tweeted from my java Chatbot " + "program! #APCSRocks!!");
 		}
 		catch(TwitterException error)
 		{
