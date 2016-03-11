@@ -38,11 +38,12 @@ public class ChatPanel extends JPanel
 		tweetButton = new JButton("Tweet");
 		saveButton = new JButton("Save");
 		loadButton = new JButton("Load");
+		analyzeTwitterButton = new JButton("analyze");
+		
+		
 		setupChatPane();
 		setupPanel();
-
 		setupLayout();
-
 		setupListeners();
 	}
 
@@ -95,6 +96,7 @@ public class ChatPanel extends JPanel
 		this.add(tweetButton);
 		this.add(saveButton);
 		this.add(loadButton);
+		this.add(analyzeTwitterButton);
 
 		textField.setToolTipText("Type in here for the chatbot");
 		chatArea.setEnabled(false);
