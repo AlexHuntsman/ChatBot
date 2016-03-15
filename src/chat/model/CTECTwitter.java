@@ -99,8 +99,31 @@ public class CTECTwitter
 
 	private String[] importWordsToArray()
 	{
-		
-		return null;
+		String[] boringWords;
+		int wordCount = 0;
+		try
+		{
+			Scanner wordFile = new Scanner(new File("commonWords.txt"));
+			while (wordFile.hasNext())
+			{
+				wordCount++;
+				wordFile.next();
+			}
+			wordFile.reset();
+			boringWords = new String[wordCount];
+			int boringWordCount = 0;
+			while (wordFile.hasNext())
+			{
+				boringWords[boringWordCount] = wordFile.next();
+				boringWordCount++;
+			}
+			wordFile.close();
+		}
+		catch (FileNotFoundException e)
+		{
+			return new String[0];
+		}
+		return boringWords;
 	}
 	
 	private void removeTwitterUsernameFromList(ArrayList<String>tweetTexts)
