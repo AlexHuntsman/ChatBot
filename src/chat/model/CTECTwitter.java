@@ -2,6 +2,7 @@ package chat.model;
 
 import twitter4j.*;
 import java.util.*;
+
 import java.io.*;
 import chat.controller.ChatController;
 
@@ -75,13 +76,37 @@ public class CTECTwitter
 		return scrubbedString;
 	}
 
-	private List removeCommonEnglishWords(ArrayList<String> wordlist)
+	private List removeCommonEnglishWords(ArrayList<String> tweetTexts)
+	{
+		String[] boringWords = importWordsToArray();
+		
+		for (int count = 0; count < tweetTexts.size(); count++)
+		{
+			for(int removeSpot = 0; removeSpot < boringWords.length; removeSpot++)
+			{
+				if (tweetTexts.get(count).equalsIgnoreCase(boringWords[removeSpot]))
+				{
+					tweetTexts.remove(count);
+					count--;
+					removeSpot = boringWords.length; // Exit the inner loop. makes sure we don't skip any words.
+				}
+			}
+		}
+		removeTwitterUsernameFromList(tweetTexts);
+		
+		return tweetTexts;
+	}
+
+	private String[] importWordsToArray()
 	{
 		
 		return null;
 	}
-
 	
+	private void removeTwitterUsernameFromList(ArrayList<String>tweetTexts)
+	{
+		
+	}
 	private void removeEmptyText()
 	{
 		for(int spot = 0; spot < tweetTexts.size(); spot++)
