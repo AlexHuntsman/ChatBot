@@ -17,8 +17,8 @@ public class CTECTwitter
 		this.baseController = baseController;
 		chatbotTwitter = TwitterFactory.getSingleton();
 
-		List<Status> statusList = new ArrayList<Status>();
-		List<String> tweetTexts = new ArrayList<String>();
+		 this.statusList = new ArrayList<Status>();
+		 this.tweetTexts = new ArrayList<String>();
 
 	}
 
@@ -125,6 +125,7 @@ public class CTECTwitter
 			wordFile.close();
 		} catch (FileNotFoundException e)
 		{
+			baseController.handleErrors(e.getMessage());
 			return new String[0];
 		}
 		return boringWords;
@@ -155,5 +156,44 @@ public class CTECTwitter
 				spot--;
 			}
 		}
+	}
+	
+	public String topResults(String user)
+	{
+		try
+		{
+			loadTweets(user);
+		}
+		catch(TwitterException error)
+		{
+			baseController.handleErrors(error.getMessage());
+		}
+	
+		String tweetResults = "";
+		
+		int topWordLocation = 0;
+		int topCount = 0;
+		
+		for (int index = 0; index < tweetTexts.size(); index++)
+		{
+			int wordUseCount = 0;
+			
+			for (int spot = 0; spot < tweetTexts.size(); spot++)
+			{
+				if(tweetTexts.get(index).equals(tweetTexts.get(spot)))
+				{
+					wordUseCount++;
+				}
+				if(wordUseCount > topCount)
+				{
+					topCount = wordUseCount;
+					topWordLocation = index;
+				}
+			}
+		}
+		
+		tweetResults = "The top word in the tweets was " + tweetTexts.get(topWordLocation) + "and it was used "+
+		 topCount + " times!";
+		return tweetResults;
 	}
 }
