@@ -78,9 +78,10 @@ public class ChatController
 
 	public void sendTweet(String tweetText)
 	{
+	//NOT ACTUAL TWEET ;(
 		chatTwitter.sendTweet("Space is soooo coo oo oo oo oo l - alex #CTEC #APCS #MARKIPLIER");
 	}
-
+	
 	public Chatbot getChatbot()
 	{
 		return myBot;
