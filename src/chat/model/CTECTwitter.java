@@ -17,8 +17,8 @@ public class CTECTwitter
 		this.baseController = baseController;
 		chatbotTwitter = TwitterFactory.getSingleton();
 
-		 this.statusList = new ArrayList<Status>();
-		 this.tweetTexts = new ArrayList<String>();
+		this.statusList = new ArrayList<Status>();
+		this.tweetTexts = new ArrayList<String>();
 
 	}
 
@@ -37,6 +37,8 @@ public class CTECTwitter
 
 	public void loadTweets(String twitterHandle) throws TwitterException
 	{
+		statusList.clear();
+		tweetTexts.clear();
 		Paging statusPage = new Paging(1, 200);
 		int page = 1;
 		while (page <= 10)
@@ -106,28 +108,23 @@ public class CTECTwitter
 	{
 		String[] boringWords;
 		int wordCount = 0;
-		try
+
+		Scanner wordFile = new Scanner(getClass().getResourceAsStream("commonWords.txt"));
+		while (wordFile.hasNext())
 		{
-			Scanner wordFile = new Scanner(new File("commonWords.txt"));
-			while (wordFile.hasNext())
-			{
-				wordCount++;
-				wordFile.next();
-			}
-			wordFile.reset();
-			boringWords = new String[wordCount];
-			int boringWordCount = 0;
-			while (wordFile.hasNext())
-			{
-				boringWords[boringWordCount] = wordFile.next();
-				boringWordCount++;
-			}
-			wordFile.close();
-		} catch (FileNotFoundException e)
-		{
-			baseController.handleErrors(e.getMessage());
-			return new String[0];
+			wordCount++;
+			wordFile.next();
 		}
+		wordFile = new Scanner(getClass().getResourceAsStream("commonWords.txt"));
+		boringWords = new String[wordCount];
+		int boringWordCount = 0;
+		while (wordFile.hasNext())
+		{
+			boringWords[boringWordCount] = wordFile.next();
+			boringWordCount++;
+		}
+		wordFile.close();
+
 		return boringWords;
 	}
 
@@ -157,43 +154,58 @@ public class CTECTwitter
 			}
 		}
 	}
-	
-	public String topResults(String user)
+
+	public String topResults()
 	{
-		try
-		{
-			loadTweets(user);
-		}
-		catch(TwitterException error)
-		{
-			baseController.handleErrors(error.getMessage());
-		}
-	
 		String tweetResults = "";
-		
+
 		int topWordLocation = 0;
 		int topCount = 0;
-		
+
 		for (int index = 0; index < tweetTexts.size(); index++)
 		{
-			int wordUseCount = 0;
-			
-			for (int spot = 0; spot < tweetTexts.size(); spot++)
+			int wordUseCount = 1;
+
+			for (int spot = index + 1; spot < tweetTexts.size(); spot++)
 			{
-				if(tweetTexts.get(index).equals(tweetTexts.get(spot)))
+				if (tweetTexts.get(index).equals(tweetTexts.get(spot)))
 				{
 					wordUseCount++;
 				}
-				if(wordUseCount > topCount)
+				if (wordUseCount > topCount)
 				{
 					topCount = wordUseCount;
 					topWordLocation = index;
 				}
 			}
 		}
-		
-		tweetResults = "The top word in the tweets was " + tweetTexts.get(topWordLocation) + "and it was used "+
-		 topCount + " times!";
+
+		tweetResults = "The top word in the tweets was " + tweetTexts.get(topWordLocation) + "and it was used " + topCount + " times!";
 		return tweetResults;
+	}
+	
+	public String sampleInvestigation()
+	{
+		String results = "";
+		
+		Query query = new Query("marathon");
+		query.setCount(100);
+		query.setGeoCode(new GeoLocation(40.587521, -111.869178), 5, Query.MILES);
+		query.setSince("2016-1-1");
+		try
+		{
+			QueryResult result = chatbotTwitter.search(query);
+			results.concat("Count : "  + result.getTweets().size());
+			for (Status tweet : result.getTweets())
+			{
+				results.concat("@" + tweet.getUser().getName() + ": " + tweet.getText() + "\n");
+			}
+		}
+		catch(TwitterException error)
+		{
+			error.printStackTrace();
+		}
+		
+		return results;
 	}
 }
