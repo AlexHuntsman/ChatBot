@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.event.*;
 
 import chat.controller.ChatController;
+import chat.controller.IOController;
 
 /**
  * 
@@ -140,6 +141,22 @@ public class ChatPanel extends JPanel
 				String user = textField.getText();
 				String results = baseController.analyze(user);
 				chatArea.setText(results);
+			}
+		});
+		saveButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent click)
+			{
+				String file = IOController.saveFile(chatArea.getText());
+				promptLabel.setText(file);
+			}
+		});
+		loadButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent click)
+			{
+				String loadedText = IOController.readTextFromFile(promptLabel.getText());
+				chatArea.setText(loadedText);
 			}
 		});
 	}

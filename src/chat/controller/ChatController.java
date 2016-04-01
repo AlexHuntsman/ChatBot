@@ -82,7 +82,7 @@ public class ChatController
 	private void shutDown()
 	{
 		myDisplay.showResponce("Goodbye, " + myBot.getUserName()
-				+ " it h been my pleasure to talk with you");
+				+ " it has been my pleasure to talk with you");
 		System.exit(0);
 	}
 
