@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.event.*;
 
 import chat.controller.ChatController;
+import chat.controller.IOController;
 
 /**
  * 
@@ -15,69 +16,153 @@ import chat.controller.ChatController;
 
 public class ChatPanel extends JPanel
 {
-private ChatController baseController;
-private SpringLayout baseLayout;
-private JButton submitButton;
-private JTextArea chatArea;
-private JTextField textField;
-private JLabel promptLabel;
+	private ChatController baseController;
+	private SpringLayout baseLayout;
+	private JScrollPane textPane;
+	private JButton tweetButton;
+	private JButton saveButton;
+	private JButton loadButton;
+	private JButton submitButton;
+	private JButton analyzeTwitterButton;
+	private JTextArea chatArea;
+	private JTextField textField;
+	private JLabel promptLabel;
 
-public ChatPanel(ChatController baseController)
-{
-	this.baseController = baseController;
-	baseLayout = new SpringLayout();
-	chatArea = new JTextArea(10,30);
-	textField = new JTextField(30);
-	promptLabel = new JLabel("Chat with me");
-	submitButton = new JButton("Submit");
-	
-	setupPanel();
-	setupLayout();
-	setupListeners();
-}
-
-private void setupLayout()
-{
-	baseLayout.putConstraint(SpringLayout.NORTH, chatArea, 10, SpringLayout.NORTH, this);
-	baseLayout.putConstraint(SpringLayout.WEST, chatArea, 31, SpringLayout.WEST, this);
-	baseLayout.putConstraint(SpringLayout.NORTH, textField, 23, SpringLayout.SOUTH, chatArea);
-	baseLayout.putConstraint(SpringLayout.WEST, textField, 0, SpringLayout.WEST, chatArea);
-	baseLayout.putConstraint(SpringLayout.WEST, promptLabel, 36, SpringLayout.WEST, this);
-	baseLayout.putConstraint(SpringLayout.NORTH, promptLabel, 5, SpringLayout.NORTH, submitButton);
-	baseLayout.putConstraint(SpringLayout.SOUTH, submitButton, -10, SpringLayout.SOUTH, this);
-	baseLayout.putConstraint(SpringLayout.EAST, submitButton, -35, SpringLayout.EAST, this);
-}
-
-private void setupPanel()
-{
-	this.setLayout(baseLayout);
-	this.setBackground(Color.CYAN);
-	this.add(chatArea);
-	this.add(textField);
-	this.add(promptLabel);
-	this.add(submitButton);
-	textField.setToolTipText("Type in here for the chatbot");
-	chatArea.setEnabled(false);
-	
-}
-
-private void setupListeners()
-{
-	submitButton.addActionListener(new ActionListener()
+	public ChatPanel(ChatController baseController)
 	{
-		public void actionPerformed (ActionEvent click)
+		this.baseController = baseController;
+		baseLayout = new SpringLayout();
+		chatArea = new JTextArea(10, 30);
+		textField = new JTextField(30);
+		promptLabel = new JLabel("Chat with me");
+		submitButton = new JButton("Submit");
+		tweetButton = new JButton("Tweet");
+		saveButton = new JButton("Save");
+		loadButton = new JButton("Load");
+		analyzeTwitterButton = new JButton("analyze");
+	
+		
+		setupChatPane();
+		setupPanel();
+		setupLayout();
+		setupListeners();
+	}
+
+	private void setupLayout()
+	{
+		baseLayout.putConstraint(SpringLayout.NORTH, analyzeTwitterButton, 0, SpringLayout.NORTH, tweetButton);
+		baseLayout.putConstraint(SpringLayout.WEST, analyzeTwitterButton, 4, SpringLayout.EAST, tweetButton);
+		
+		baseLayout.putConstraint(SpringLayout.NORTH, loadButton, 0, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.EAST, loadButton, -2, SpringLayout.WEST, saveButton);
+		baseLayout.putConstraint(SpringLayout.NORTH, tweetButton, 0, SpringLayout.NORTH, saveButton);
+		baseLayout.putConstraint(SpringLayout.NORTH, saveButton, 0, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.WEST, tweetButton, 0, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.WEST, promptLabel, 36,
+				SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.NORTH, promptLabel, 5,
+				SpringLayout.NORTH, submitButton);
+		baseLayout.putConstraint(SpringLayout.SOUTH, submitButton, -10,
+				SpringLayout.SOUTH, this);
+		baseLayout.putConstraint(SpringLayout.EAST, submitButton, -35,
+				SpringLayout.EAST, this);
+		baseLayout.putConstraint(SpringLayout.NORTH, textPane, 30,
+				SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.WEST, textPane, 50,
+				SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.SOUTH, textPane, -90,
+				SpringLayout.SOUTH, this);
+		baseLayout.putConstraint(SpringLayout.EAST, textPane, -50,
+				SpringLayout.EAST, this);
+		baseLayout.putConstraint(SpringLayout.NORTH, textField, 6,
+				SpringLayout.SOUTH, textPane);
+		baseLayout.putConstraint(SpringLayout.WEST, textField, 0,
+				SpringLayout.WEST, textPane);
+		baseLayout.putConstraint(SpringLayout.EAST, textField, 0,
+				SpringLayout.EAST, textPane);
+	}
+
+	private void setupChatPane()
+	{
+		textPane = new JScrollPane(chatArea);
+		baseLayout.putConstraint(SpringLayout.EAST, saveButton, 0, SpringLayout.EAST, textPane);
+		chatArea.setLineWrap(true);
+		chatArea.setWrapStyleWord(true);
+		chatArea.setEditable(false);
+		textPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		textPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+	}
+
+	private void setupPanel()
+	{
+		this.setLayout(baseLayout);
+		this.setBackground(Color.CYAN);
+		this.add(textPane);
+		// DO NOT ADD THE LINE this.add(chatArea);
+		this.add(textField);
+		this.add(promptLabel);
+		this.add(submitButton);
+		this.add(tweetButton);
+		this.add(saveButton);
+		this.add(loadButton);
+		this.add(analyzeTwitterButton);
+
+		textField.setToolTipText("Type in here for the chatbot");
+		chatArea.setEnabled(false);
+
+	}
+
+	private void setupListeners()
+	{
+		submitButton.addActionListener(new ActionListener()
 		{
-			String conversation = textField.getText();
-			chatArea.append("\nUser: " + conversation);
-			textField.setText("");
-			String responce = baseController.userToChatbot(conversation);
-			chatArea.append("\nChatBot: " + responce);
-			
-		}
-	});
-}
- public JTextField getTextField()
- {
-	 return textField;
- }
+			public void actionPerformed(ActionEvent click)
+			{
+				String conversation = textField.getText();
+				chatArea.append("\nUser: " + conversation);
+				textField.setText("");
+				String responce = baseController.userToChatbot(conversation);
+				chatArea.append("\nChatBot: " + responce);
+
+			}
+		});
+		tweetButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent click)
+			{
+				baseController.sendTweet("No Text to send");
+			}
+		});
+		analyzeTwitterButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent click)
+			{
+				String user = textField.getText();
+				String results = baseController.analyze(user);
+				chatArea.setText(results);
+			}
+		});
+		saveButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent click)
+			{
+				String file = IOController.saveFile(chatArea.getText());
+				promptLabel.setText(file);
+			}
+		});
+		loadButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent click)
+			{
+				String loadedText = IOController.readTextFromFile(promptLabel.getText());
+				chatArea.setText(loadedText);
+			}
+		});
+	}
+
+	public JTextField getTextField()
+	{
+		return textField;
+	}
 }
